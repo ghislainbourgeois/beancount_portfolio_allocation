@@ -31,20 +31,20 @@ def get_allocation_directives(entries, portfolio):
 
 def _position_from_row(row):
         symbol = row[0]
-        value = row[1]
-        asset_class = row[2]
-        asset_subclass = row[3]
-        account = row[4]
+        asset_class = row[1]
+        asset_subclass = row[2]
+        account = row[3]
+        value = row[4]
         return Position(symbol, value, asset_class, asset_subclass, account)
 
 
 def get_allocations(entries, options_map, portfolio):
     allocation_query = r"""
             SELECT currency,
-                   value(sum(position)),
                    GETITEM(CURRENCY_META(currency), "asset-class") as c,
                    GETITEM(CURRENCY_META(currency), "asset-subclass") as s,
-                   account
+                   account,
+                   value(sum(position))
             WHERE GETITEM(OPEN_META(account), "portfolio") = "{}"
             GROUP BY currency, c, s, account
             """
