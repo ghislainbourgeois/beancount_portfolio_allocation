@@ -2,6 +2,8 @@ __author__ = "Ghislain Bourgeois"
 __copyright__ = "Copyright (C) 2018 Ghislain Bourgeois"
 __license__ = "GNU GPLv2"
 
+import logging
+
 
 class Allocations(list):
     def asset_classes(self):
@@ -45,3 +47,9 @@ class Position:
         self.asset_class = asset_class
         self.asset_subclass = asset_subclass
         self.account = account
+        self.validate_value()
+
+    def validate_value(self):
+        if self.value is None:
+            logging.error("Could not get a value for currency %s in account %s. Using 0. Are you missing a price directive?" % (self.symbol, self.account))
+            self.value = 0

@@ -19,7 +19,7 @@ setuptools.setup(
 
         install_requires=['beancount>=2.1.2'],
 
-        test_suite="tests.allocation_report_test",
+        test_suite="tests",
 
         author="Ghislain Bourgeois",
         author_email="ghislain.bourgeois@gmail.com",
