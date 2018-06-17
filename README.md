@@ -4,7 +4,7 @@ beancount_portfolio_allocation
 Reports on portfolio asset allocations in beancount. Useful for risk analysis
 and for rebalancing purposes.
 
-[![Build Status](https://travis-ci.org/ghislainbourgeois/beancount_portfolio_allocation.svg?branch=master)](http://travis-ci.org/ghislainbourgeois/meetup_loto)
+[![Build Status](https://travis-ci.org/ghislainbourgeois/beancount_portfolio_allocation.svg?branch=master)](http://travis-ci.org/ghislainbourgeois/beancount_portfolio_allocation)
 [![Coverage Status](https://coveralls.io/repos/github/ghislainbourgeois/beancount_portfolio_allocation/badge.svg?branch=master)](https://coveralls.io/github/ghislainbourgeois/beancount_portfolio_allocation?branch=master)
 
 Installation
