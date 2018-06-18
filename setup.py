@@ -18,6 +18,7 @@ setuptools.setup(
         },
 
         install_requires=['beancount>=2.1.2'],
+        tests_require=['testfixtures'],
 
         test_suite="tests",
 
