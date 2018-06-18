@@ -92,7 +92,10 @@ values are up to you. Here are some examples:
   asset-subclass: "ca-bond"
 ```
 
-You will also need valid price directives for all commodities held at cost.
+You will also need valid price directives for all commodities held at cost and
+at least one 'operating_currency' option defined. The values in the report will
+all be converted to the first 'operating_currency' defined. A future version
+will offer a way to specify the currency to use for reporting.
 
 ### Accounts
 

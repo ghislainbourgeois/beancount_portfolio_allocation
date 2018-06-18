@@ -4,58 +4,57 @@ __license__ = "GNU GPLv2"
 
 import unittest
 import beancount_portfolio_allocation.loader as loader
-from beancount.core.data import Decimal
-from testfixtures import log_capture
 
 
-class TestMultiCurrencyMissingPricesReport(unittest.TestCase):
-    @log_capture()
-    def setUp(self, capture):
+class TestAllocationReportZeroPosition(unittest.TestCase):
+    def setUp(self):
         self.maxDiff = None
-        self.file = "tests/multicurrency-portfolio.beancount"
+        self.file = "tests/test-zero-position.beancount"
         self.portfolio = "pension"
         (self.targets, self.allocations,
             self.total) = loader.load(self.file, self.portfolio)
-        capture.check(
-            ('root',
-             'ERROR',
-             'Could not get a value for currency AAPL in account Assets:Pension. Using 0. Are you missing a price directive?')
-        )
 
     def test_asset_classes(self):
         asset_classes = self.allocations.asset_classes()
 
-        self.assertEqual(len(asset_classes), 1)
+        self.assertEqual(len(asset_classes), 3)
+        self.assertTrue("cash" in asset_classes)
         self.assertTrue("equity" in asset_classes)
+        self.assertTrue("fixed" in asset_classes)
 
     def test_cash_asset_subclass(self):
         asset_subclasses = self.allocations.asset_subclasses("cash")
 
-        self.assertEqual(len(asset_subclasses), 0)
+        self.assertEqual(len(asset_subclasses), 1)
+        self.assertTrue("cash" in asset_subclasses)
 
     def test_equity_asset_subclass(self):
         asset_subclasses = self.allocations.asset_subclasses("equity")
 
         self.assertEqual(len(asset_subclasses), 2)
-        self.assertTrue("usa" in asset_subclasses)
-        self.assertTrue("uk" in asset_subclasses)
+        self.assertTrue("ca-stock" in asset_subclasses)
+        self.assertTrue("us-stock" in asset_subclasses)
 
     def test_cash_value(self):
         value = self.allocations.value_for_class_subclass("cash", "cash")
 
-        self.assertEqual(value, 0)
+        self.assertEqual(value, 1080)
 
     def test_equity_value(self):
-        value = self.allocations.value_for_class_subclass("equity", "usa")
+        value = self.allocations.value_for_class_subclass("equity", "ca-stock")
 
         self.assertEqual(value, 0)
 
     def test_total_invested(self):
         total = self.allocations.total_invested_for_portfolio()
 
-        self.assertEqual(total, Decimal('24.4495'))
+        self.assertEqual(total, 2000)
 
     def test_allocation_directives(self):
         targets = self.targets
 
-        self.assertEqual(len(targets), 0)
+        self.assertEqual(len(targets), 3)
+        self.assertTrue("ca-stock" in targets)
+        self.assertEqual(targets["ca-stock"], 30)
+        self.assertTrue("ca-bond" in targets)
+        self.assertEqual(targets["ca-bond"], 40)

@@ -41,15 +41,19 @@ class Allocations(list):
 
 
 class Position:
-    def __init__(self, symbol, value, asset_class, asset_subclass, account):
+    def __init__(self, symbol, value, asset_class, asset_subclass, account, price):
         self.symbol = symbol
         self.value = value
         self.asset_class = asset_class
         self.asset_subclass = asset_subclass
         self.account = account
+        self.price = price
         self.validate_value()
 
     def validate_value(self):
         if self.value is None:
-            logging.error("Could not get a value for currency %s in account %s. Using 0. Are you missing a price directive?" % (self.symbol, self.account))
+            if self.price is None:
+                logging.error("Could not get a value for currency %s in account %s. Using 0. Are you missing a price directive?" % (self.symbol, self.account))
+            else:
+                logging.info("Assuming zero value for currency %s in account %s." % (self.symbol, self.account))
             self.value = 0
