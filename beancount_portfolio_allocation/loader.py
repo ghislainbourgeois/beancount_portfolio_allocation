@@ -27,7 +27,7 @@ def load(bean, portfolio):
 
 
 def _missing_operating_currency(o):
-    return 'operating_currency' not in o and len(o['operating_currency']) < 1
+    return 'operating_currency' not in o or len(o['operating_currency']) < 1
 
 
 def get_allocation_directives(entries, portfolio):
