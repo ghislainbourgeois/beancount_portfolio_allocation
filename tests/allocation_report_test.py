@@ -63,25 +63,37 @@ class TestAllocationReport(unittest.TestCase):
     def test_main_report(self):
         report = allocation_report.report(self.file, self.portfolio)
 
-        expected_report = """cash
-===========================================================================
-subclass 	 amount 	 percent 	 target 	 difference
----------------------------------------------------------------------------
-cash       	 380.00 	 19.00 		 0.00 		 -380.00
+        expected_report = """CASH
+====
+Subclass      Market Value    Percentage    Target %    Difference
+----------  --------------  ------------  ----------  ------------
+cash                380.00         19.00        0.00       -380.00
 
-equity
-===========================================================================
-subclass 	 amount 	 percent 	 target 	 difference
----------------------------------------------------------------------------
-ca-stock   	 700.00 	 35.00 		 30.00 		 -100.00
-us-stock   	 600.00 	 30.00 		 30.00 		 0.00
 
-fixed
-===========================================================================
-subclass 	 amount 	 percent 	 target 	 difference
----------------------------------------------------------------------------
-ca-bond    	 320.00 	 16.00 		 40.00 		 480.00
+EQUITY
+======
+Subclass      Market Value    Percentage    Target %    Difference
+----------  --------------  ------------  ----------  ------------
+ca-stock            700.00         35.00       30.00       -100.00
+us-stock            600.00         30.00       30.00          0.00
 
+
+FIXED
+=====
+Subclass      Market Value    Percentage    Target %    Difference
+----------  --------------  ------------  ----------  ------------
+ca-bond             320.00         16.00       40.00        480.00
 """
 
         self.assertEqual(report, expected_report)
+
+    def test_report_data(self):
+        data = allocation_report.report_data(self.targets,
+                                             self.allocations,
+                                             self.total)
+
+        expected = {'cash':   [['cash', 380, 19.00, 0.00, -380.00]],
+                    'equity': [['ca-stock', 700, 35.00, 30.00, -100.00],
+                               ['us-stock', 600, 30.00, 30.00, 0.00]],
+                    'fixed':  [['ca-bond', 320, 16.00, 40.00, 480.00]]}
+        self.assertEqual(data, expected)

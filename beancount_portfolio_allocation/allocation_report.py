@@ -5,34 +5,51 @@ __license__ = "GNU GPLv2"
 
 import beancount_portfolio_allocation.loader as loader
 
+from tabulate import tabulate
+
+
+def report_data(targets, allocations, total):
+    result = dict()
+    for asset_class in allocations.asset_classes():
+        result[asset_class] = list()
+        for subclass in allocations.asset_subclasses(asset_class):
+            value = allocations.value_for_class_subclass(asset_class, subclass)
+            percentage = allocations.percentage_for_class_subclass(asset_class,
+                                                                   subclass)
+            target = targets.get(subclass, 0)
+            diff = cash_difference(target, percentage, total)
+            line = list()
+            line.append(subclass)
+            line.append(float(value))
+            line.append(float(percentage))
+            line.append(float(target))
+            line.append(float(diff))
+            result[asset_class].append(line)
+    return result
+
 
 def report(bean, portfolio):
     targets, allocations, total = loader.load(bean, portfolio)
+    data = report_data(targets, allocations, total)
 
+    head = ["Subclass", "Market Value", "Percentage", "Target %", "Difference"]
     report = ""
-    for k in allocations.asset_classes():
-        report += _class_header(k)
-        for s in allocations.asset_subclasses(k):
-            value = allocations.value_for_class_subclass(k, s)
-            percentage = allocations.percentage_for_class_subclass(k, s)
-            target = targets.get(s, 0)
-            diff = cash_difference(target, percentage, total)
-            report += str("%-10s \t %.2f \t %.2f \t\t %.2f \t\t %.2f\n" %
-                          (s, value, percentage, target, diff))
+    first = True
+
+    for asset_class in data:
+        if not first:
+            report += "\n\n"
+        else:
+            first = False
+        report += asset_class.upper()
+        report += "\n"
+        report += "=" * len(asset_class)
+        report += "\n"
+
+        report += tabulate(data[asset_class], head, floatfmt='.2f')
         report += "\n"
 
     return report
-
-
-def _class_header(asset_class):
-    result = asset_class
-    result += "\n"
-    result += ("=" * 75)
-    result += "\n"
-    result += "subclass \t amount \t percent \t target \t difference\n"
-    result += ("-" * 75)
-    result += "\n"
-    return result
 
 
 def percentage_difference(target, percentage):

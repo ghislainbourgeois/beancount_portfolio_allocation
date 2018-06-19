@@ -17,7 +17,7 @@ setuptools.setup(
             ],
         },
 
-        install_requires=['beancount>=2.1.2'],
+        install_requires=['beancount>=2.1.2', 'tabulate'],
         tests_require=['testfixtures'],
 
         test_suite="tests",
