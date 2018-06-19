@@ -42,25 +42,28 @@ optional arguments:
 
 ```bash
 $ bean-portfolio-allocation-report ledger.beancount --portfolio pension
-cash
-===========================================================================
-subclass 	 amount 	 percent 	 target 	 difference
----------------------------------------------------------------------------
-cash       	 380.00 	 19.00 		 0.00 		 -380.00
+CASH
+====
+Subclass      Market Value    Percentage    Target %    Difference
+----------  --------------  ------------  ----------  ------------
+cash                380.00         19.00        0.00       -380.00
 
-equity
-===========================================================================
-subclass 	 amount 	 percent 	 target 	 difference
----------------------------------------------------------------------------
-ca-stock   	 700.00 	 35.00 		 30.00 		 -100.00
-us-stock   	 600.00 	 30.00 		 30.00 		 0.00
 
-fixed
-===========================================================================
-subclass 	 amount 	 percent 	 target 	 difference
----------------------------------------------------------------------------
-ca-bond    	 320.00 	 16.00 		 40.00 		 480.00
+EQUITY
+======
+Subclass      Market Value    Percentage    Target %    Difference
+----------  --------------  ------------  ----------  ------------
+ca-stock            700.00         35.00       30.00       -100.00
+us-stock            600.00         30.00       30.00          0.00
+
+
+FIXED
+=====
+Subclass      Market Value    Percentage    Target %    Difference
+----------  --------------  ------------  ----------  ------------
+ca-bond             320.00         16.00       40.00        480.00
 ```
+
 
 Prerequisites
 -------------
