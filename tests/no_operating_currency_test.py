@@ -9,11 +9,11 @@ from testfixtures import log_capture
 
 class TestOperatingCurrencyMissingReport(unittest.TestCase):
     def setUp(self):
-        self.file = "tests/test-no-main-currency.beancount"
+        self.file = "tests/test_inputs/no-main-currency.beancount"
         self.portfolio = "pension"
 
     @log_capture()
-    def test_asset_classes(self, capture):
+    def test_missing_operating_currency_errors_and_exit(self, capture):
         with self.assertRaises(SystemExit):
             (self.targets, self.allocations,
                 self.total) = loader.load(self.file, self.portfolio)

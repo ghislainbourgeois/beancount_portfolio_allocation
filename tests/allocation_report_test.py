@@ -10,7 +10,7 @@ import beancount_portfolio_allocation.allocation_report as allocation_report
 class TestAllocationReport(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
-        self.file = "tests/test-portfolio.beancount"
+        self.file = "tests/test_inputs/portfolio.beancount"
         self.portfolio = "pension"
         (self.targets, self.allocations,
             self.total) = loader.load(self.file, self.portfolio)
