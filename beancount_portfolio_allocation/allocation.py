@@ -10,18 +10,14 @@ class Allocations(list):
         result = set()
         for p in self:
             result.add(p.asset_class)
-        sorted_results = list(result)
-        sorted_results.sort()
-        return sorted_results
+        return sorted(result)
 
     def asset_subclasses(self, asset_class):
         result = set()
         for p in self:
             if p.asset_class == asset_class:
                 result.add(p.asset_subclass)
-        sorted_results = list(result)
-        sorted_results.sort()
-        return sorted_results
+        return sorted(result)
 
     def value_for_class_subclass(self, asset_class, asset_subclass):
         result = 0

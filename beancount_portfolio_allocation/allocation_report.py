@@ -36,7 +36,7 @@ def report(bean, portfolio):
     report = ""
     first = True
 
-    for asset_class in data:
+    for asset_class in sorted(data):
         if not first:
             report += "\n\n"
         else:
