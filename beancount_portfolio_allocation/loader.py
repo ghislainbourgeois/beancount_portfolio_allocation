@@ -41,8 +41,8 @@ def get_allocation_directives(entries, portfolio):
 
 def _position_from_row(row):
         symbol = row[0]
-        asset_class = row[1]
-        asset_subclass = row[2]
+        asset_class = row[6] if row[6] else row[1]
+        asset_subclass = row[7] if row[7] else row[2]
         account = row[3]
         price = row[4]
         value = row[5]
@@ -56,9 +56,11 @@ def get_allocations(entries, options_map, portfolio):
                    GETITEM(CURRENCY_META(currency), "asset-subclass") as s,
                    account,
                    getprice(currency, "{1}", today()) as price,
-                   convert(value(sum(position)), "{1}")
+                   convert(value(sum(position)), "{1}"),
+                   GETITEM(OPEN_META(account), "asset-class") as act_class,
+                   GETITEM(OPEN_META(account), "asset-subclass") as act_subclass
             WHERE GETITEM(OPEN_META(account), "portfolio") = "{0}"
-            GROUP BY currency, c, s, account, price
+            GROUP BY currency, c, s, account, price, act_class, act_subclass
             """
 
     target_currency = options_map['operating_currency'][0]
