@@ -117,6 +117,20 @@ accounts:
   portfolio: "day-trading"
 ```
 
+#### Cash Based Accounts
+
+It is possible to specify `asset-class` and `asset-subclasse` or accounts that
+are reported as a cash-value, but are backed by specific asset classes.
+
+This is use in particular for managed retirement accounts.
+
+```beancount
+2000-01-01 open Assets:CA:Employer:PensionPlan
+  portfolio: "pension"
+  asset-class: "fixed-income"
+  asset-subclass: "ca-bond"
+```
+
 ### Target allocations
 
 You can currently define your target allocation percentages for different asset
