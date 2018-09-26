@@ -62,9 +62,7 @@ def cash_difference(target, percentage, total):
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser(
-                "Report on portfolio asset classes allocation vs targets."
-                )
+    parser = argparse.ArgumentParser("Report on portfolio asset classes allocation vs targets.")
     parser.add_argument('bean', help='Path to the beancount file.')
     parser.add_argument('--portfolio',
                         type=str,

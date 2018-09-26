@@ -9,7 +9,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
         name="beancount_portfolio_allocation",
-        version="0.2.1",
+        version="0.3.0",
         packages=setuptools.find_packages(),
         entry_points={
             'console_scripts': [
@@ -17,8 +17,9 @@ setuptools.setup(
             ],
         },
 
+        setup_requires=['pytest-runner'],
         install_requires=['beancount>=2.1.2', 'tabulate'],
-        tests_require=['testfixtures'],
+        tests_require=['pytest', 'testfixtures'],
 
         test_suite="tests",
 

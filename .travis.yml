@@ -1,9 +1,16 @@
 language: python
 python:
-  - "3.5"
-  - "3.6"
+  - 3.5
+  - 3.6
+
+matrix:
+  include:
+    - python: 3.7
+      dist: xenial
+      sudo: true
+
 install:
-  - pip install coveralls coverage
+  - pip install tox coveralls coverage
 script:
-  - coverage run --source=beancount_portfolio_allocation setup.py test
+  - tox -e $(echo py$TRAVIS_PYTHON_VERSION | tr -d .)
   - coveralls
