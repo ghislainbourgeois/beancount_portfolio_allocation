@@ -1,0 +1,72 @@
+name: Main
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: ".python_version"
+
+      - name: Install UV
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.9.13"
+
+      - name: Install the project
+        run: uv sync --locked --all-extras --dev
+
+      - name: Lint
+        run: uv run ruff check
+
+  mypy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: ".python_version"
+
+      - name: Install UV
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.9.13"
+
+      - name: Install the project
+        run: uv sync --locked --all-extras --dev
+
+      - name: Mypy
+        run: uv run mypy .
+
+  unittest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: ".python_version"
+
+      - name: Install UV
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.9.13"
+
+      - name: Install the project
+        run: uv sync --locked --all-extras --dev
+
+      - name: Run tests
+        run: uv run pytest

@@ -5,7 +5,7 @@ __license__ = "GNU GPLv2"
 import logging
 
 from beancount import loader
-from beancount.query import query
+from beanquery import query  # type: ignore
 from beancount.core.data import Custom
 from beancount_portfolio_allocation.allocation import Allocations, Position
 

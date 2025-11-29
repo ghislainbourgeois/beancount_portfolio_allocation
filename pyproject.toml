@@ -1,0 +1,55 @@
+[project]
+name = "beancount_portfolio_allocation"
+authors = [
+{name = "Ghislain Bourgeois", email = "ghislain.bourgeois@gmail.com"},
+]
+maintainers = [
+{name = "Ghislain Bourgeois", email = "ghislain.bourgeois@gmail.com"},
+]
+version = "1.0.0"
+description = "Beancount portfolio allocation report"
+readme = "README.md"
+license = "GPL-2.0-only"
+keywords=[
+	"beancount",
+	"report",
+	"portfolio",
+	"allocation",
+]
+classifiers = [
+            "Programming Language :: Python :: 3",
+            "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+            "Operating System :: OS Independent",
+            "Environment :: Console",
+            "Intended Audience :: End Users/Desktop",
+            "Intended Audience :: Financial and Insurance Industry",
+            "Topic :: Office/Business :: Financial",
+            "Topic :: Office/Business :: Financial :: Accounting",
+            "Topic :: Office/Business :: Financial :: Investment",
+]
+requires-python = ">=3.10"
+dependencies = [
+	"beancount>=3",
+        "beanquery",
+	"tabulate",
+]
+
+[dependency-groups]
+dev = [
+	"pytest",
+	"testfixtures",
+        "ruff",
+        "mypy",
+        "types-tabulate",
+]
+
+[project.urls]
+Repository = "https://github.com/ghislainbourgeois/beancount_portfolio_allocation.git"
+Issues = "https://github.com/ghislainbourgeois/beancount_portfolio_allocation/issues"
+
+[project.scripts]
+bean-portfolio-allocation-report = "beancount_portfolio_allocation.allocation_report:main"
+
+[build-system]
+requires = ["uv_build >= 0.9.9, <0.10.0"]
+build-backend = "uv_build"
